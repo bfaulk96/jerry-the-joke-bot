@@ -53,9 +53,6 @@ async def on_message(message):
         dj = get_dad_joke()
         await message.channel.send(dj)
 
-    if msg.startswith('$yobi'):
-        await message.channel.send('ahh, he crazy')
-
     if any(word in msg for word in potty_words):
         await message.channel.send(random.choice(dad_jokes))
 
