@@ -1,0 +1,22 @@
+{
+  "name": "NoDaddy",
+  "description": "A Discord bot that makes dad joke about your potty mouth any time a cuss word is used in chat.",
+  "image": "heroku/python",
+  "repository": "https://github.com/bfaulk96/no-daddy",
+  "keywords": ["python", "discord", "bot" ],
+  "__addons": [ "heroku-postgresql" ],
+  "env": {
+    "TOKEN": {
+      "description": "Token for Discord bot",
+      "generator": "secret"
+    }
+  },
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "# python manage.py collectstatic --noinput",
+        "test": "# python manage.py test"
+      }
+    }
+  }
+}
