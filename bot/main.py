@@ -11,6 +11,7 @@ from git import Repo, Commit
 
 load_dotenv()
 client: discord.Client = discord.Client()
+empty = '‏‏‎ ‎'
 potty_words: [str] = ["shit", "fuck", "damn", "pussy", "crap"]
 dad_jokes: [str] = [
     "Please don't say that shit.",
@@ -23,6 +24,7 @@ dad_jokes: [str] = [
 ]
 
 info_icon = 'https://emoji.gg/assets/emoji/3224_info.png'
+question_icon = 'https://emoji.gg/assets/emoji/2825_question.png'
 github_api_url = 'https://api.github.com/repos/bfaulk96/no-daddy/commits/main'
 github_url = 'https://github.com/bfaulk96/no-daddy'
 headers: dict = {'user-agent': 'no-daddy/0.0.1', 'Accept': 'application/json'}
@@ -70,6 +72,24 @@ def get_info_embed() -> discord.Embed:
     return embed
 
 
+def get_help_embed() -> discord.Embed:
+    embed = discord.Embed(color=0x3E6CA0)
+    embed.set_author(name='Help', icon_url=question_icon)
+    options = {
+        '$dad': 'Get a random dad joke',
+        '$mom': 'Get a random "yo momma" joke',
+        '$chuck': 'Get a random Chuck Norris joke',
+        '$joke': 'Get a random setup/punchline joke',
+        '$nd [info]': 'View Bot info',
+        '$help': 'View this help list'
+    }
+    commands = options.keys()
+    descriptions = options.values()
+    embed.add_field(name=f"Command{empty * 15}", value="\n".join(commands))
+    embed.add_field(name="Description", value="\n".join(descriptions))
+    return embed
+
+
 @client.event
 async def on_ready():
     print(f"We have logged in as {client.user}")
@@ -99,16 +119,7 @@ async def on_message(message: discord.Message):
             await channel.trigger_typing()
             return await channel.send(embed=get_info_embed())
     elif msg.startswith('$help'):
-        return await channel.send(embed=discord.Embed(title='Command Options', description='''
-```bash
-$dad         – Get a random dad joke
-$mom         – Get a random "yo momma" joke
-$chuck       – Get a random Chuck Norris joke
-$joke        – Get a random setup/punchline joke
-$nd [info]   – View Bot info
-$help        – View this help list
-```
-'''))
+        return await channel.send(embed=get_help_embed())
 
     # if any(word in msg for word in potty_words):
     #     await message.channel.send(random.choice(dad_jokes))
