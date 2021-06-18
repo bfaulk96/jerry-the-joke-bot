@@ -78,6 +78,15 @@ async def on_message(message):
         setup, punchline = get_2_part_joke()
         await message.channel.send(setup)
         await message.channel.send(f"||{punchline}||")
+    if msg.startswith('$help'):
+        await message.channel.send('''
+Options include:
+  $dad      – Get a random dad joke
+  $mom      – Get a random "yo momma" joke
+  $chuck    - Get a random Chuck Norris joke
+  $joke     - Get a random setup/punchline joke
+  $help     - View this help list
+''')
 
     # if any(word in msg for word in potty_words):
     #     await message.channel.send(random.choice(dad_jokes))
