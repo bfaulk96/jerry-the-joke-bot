@@ -5,6 +5,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import requests
 import json
+from dateutil import tz
 from git import Repo, Commit
 # import random
 
@@ -22,6 +23,7 @@ dad_jokes: [str] = [
 ]
 
 info_icon = 'https://emoji.gg/assets/emoji/3224_info.png'
+github_api_url = 'https://api.github.com/repos/bfaulk96/no-daddy/commits/main'
 github_url = 'https://github.com/bfaulk96/no-daddy'
 headers: dict = {'user-agent': 'no-daddy/0.0.1', 'Accept': 'application/json'}
 
@@ -50,16 +52,18 @@ def get_2_part_joke() -> (str, str):
     return json_data['setup'], json_data['punchline']
 
 
-def last_commit_date() -> (datetime.datetime, str):
-    last_commit: Commit = Repo().head.commit
-    return last_commit.committed_datetime, last_commit.hexsha
+def last_commit_date() -> datetime.datetime:
+    response = requests.get(github_api_url, headers=headers)
+    iso_date = json.loads(response.text)['commit']['author']['date']
+    date = datetime.datetime.fromisoformat(iso_date[:-1]).astimezone(tz.tzlocal()).replace(tzinfo=tz.tzutc())
+    return date.astimezone(tz.tzlocal())
 
 
 def get_info_embed() -> discord.Embed:
     embed = discord.Embed(color=0x7289da)
     embed.set_author(name="Info", icon_url=info_icon)
-    lcd, commit_hash = last_commit_date()
-    embed.set_footer(text=f"Bot last updated {lcd:%m/%d/%Y at %H:%M:%S %p}.")
+    lcd = last_commit_date()
+    embed.set_footer(text=f"Bot last updated {lcd:%m/%d/%Y at %I:%M:%S %p %Z}.")
     embed.add_field(name="Github", value=github_url, inline=False)
     embed.add_field(name="Written in", value="[Python](https://www.python.org/)")
     embed.add_field(name="Hosted on", value="[Heroku](https://dashboard.heroku.com/)")
