@@ -68,7 +68,7 @@ async def on_message(message: discord.Message):
         await message.channel.send(setup)
         await message.channel.send(f"||{punchline}||")
     if msg.startswith('$no_daddy'):
-        args = msg.split().pop()
+        args = msg.split()[1:]
         if args[0].startswith('info'):
             await message.channel.send('''
             NoDaddy Bot
@@ -76,16 +76,18 @@ async def on_message(message: discord.Message):
             Coded with: Python
             Hosted on: Heroku
             ''')
+            return
 
     if msg.startswith('$help'):
         await message.channel.send('''
         Options include:
         ```bash
-        $dad    – Get a random dad joke
-        $mom    – Get a random "yo momma" joke
-        $chuck  – Get a random Chuck Norris joke
-        $joke   – Get a random setup/punchline joke
-        $help   – View this help list
+        $dad             – Get a random dad joke
+        $mom             – Get a random "yo momma" joke
+        $chuck           – Get a random Chuck Norris joke
+        $joke            – Get a random setup/punchline joke
+        $no_daddy [info] – View this help list
+        $help            – View this help list
         ```
         ''')
 
