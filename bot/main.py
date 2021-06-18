@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 import requests
 import json
-import random
+# import random
 
 load_dotenv()
 client = discord.Client()
@@ -19,13 +19,6 @@ dad_jokes = [
 ]
 
 headers = {'user-agent': 'no-daddy/0.0.1', 'Accept': 'application/json'}
-
-
-def get_quote():
-    response = requests.get("https://zenquotes.io/api/random")
-    json_data = json.loads(response.text)
-    quote = json_data[0]['q'] + " – " + json_data[0]['a']
-    return quote
 
 
 def get_dad_joke():
@@ -64,10 +57,6 @@ async def on_message(message):
 
     msg = message.content.lower()
 
-    # if msg.startswith('$inspire'):
-    #     quote = get_quote()
-    #     await message.channel.send(quote)
-
     if msg.startswith('$dad'):
         await message.channel.send(get_dad_joke())
     if msg.startswith('$mom'):
@@ -81,11 +70,13 @@ async def on_message(message):
     if msg.startswith('$help'):
         await message.channel.send('''
 Options include:
-  $dad      – Get a random dad joke
-  $mom      – Get a random "yo momma" joke
-  $chuck    - Get a random Chuck Norris joke
-  $joke     - Get a random setup/punchline joke
-  $help     - View this help list
+```bash
+$dad    – Get a random dad joke
+$mom    – Get a random "yo momma" joke
+$chuck  – Get a random Chuck Norris joke
+$joke   – Get a random setup/punchline joke
+$help   – View this help list
+```
 ''')
 
     # if any(word in msg for word in potty_words):
