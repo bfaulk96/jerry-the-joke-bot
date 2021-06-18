@@ -1,3 +1,3 @@
 #!/bin/bash
 
-nodemon --exec python3 main.py
+nodemon --exec python3 bot/main.py
