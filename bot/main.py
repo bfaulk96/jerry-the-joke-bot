@@ -1,6 +1,7 @@
 import datetime
 import discord
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 import requests
 import json
@@ -50,8 +51,7 @@ def get_2_part_joke() -> (str, str):
 
 
 def last_commit_date() -> (datetime.datetime, str):
-    repo = Repo('.')
-    last_commit: Commit = repo.head.commit
+    last_commit: Commit = Repo().head.commit
     return last_commit.committed_datetime, last_commit.hexsha
 
 
