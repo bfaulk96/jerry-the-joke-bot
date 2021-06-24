@@ -1,9 +1,9 @@
 {
-  "name": "NoDaddy",
-  "description": "A Discord bot that makes dad joke about your potty mouth any time a cuss word is used in chat.",
+  "name": "Jerry the Joke Bot",
+  "description": "A Discord bot that gives a wide variety of jokes",
   "image": "heroku/python",
-  "repository": "https://github.com/bfaulk96/no-daddy",
-  "keywords": ["python", "discord", "bot" ],
+  "repository": "https://github.com/bfaulk96/jerry-the-joke-bot",
+  "keywords": ["python", "discord", "bot", "jokes", "funny", "humor" ],
   "__addons": [ "heroku-postgresql" ],
   "env": {
     "TOKEN": {
