@@ -5,18 +5,6 @@ info_icon = 'https://emoji.gg/assets/emoji/3224_info.png'
 question_icon = 'https://emoji.gg/assets/emoji/2825_question.png'
 github_url = 'https://github.com/bfaulk96/jerry-the-joke-both'
 
-# potty_words: [str] = ["shit", "fuck", "damn", "pussy", "crap"]
-# dad_jokes: [str] = [
-#     "Please don't say that shit.",
-#     "Fuck outta here with that language.",
-#     "What the hell kind of potty mouth is that?",
-#     "Damn, where did you learn to talk like that?",
-#     "I'm tired of that damn potty mouth of yours.",
-#     "You must have a shitty vocabulary to be cussing like that.",
-#     "Are you fucking kidding me? Watch your mouth."
-# ]
-
-
 def get_info_embed() -> discord.Embed:
     embed = discord.Embed(color=0x7289da)
     embed.set_author(name="Info", icon_url=info_icon)
